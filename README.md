@@ -8,3 +8,9 @@
 
 Не забудьте перед запуском положить GeoLite2-Country.mmdb в корень проекта. В остальном всё должно сразу работать :) 
 
+## Стек
+
+* Быстрый HTTP сервер с использованием [valyala/fasthttp](https://github.com/valyala/fasthttp)
+* Парсинг User-Agent через [mssola/user_agent](https://github.com/mssola/user_agent)
+* Взаимодействие с GeoIP через [oschwald/geoip2-golang](https://github.com/oschwald/geoip2-golang)
+
