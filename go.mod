@@ -1,4 +1,4 @@
-module mini-ads-server1
+module github.com/VyacheslavGoryunov/simple-ads-server
 
 go 1.16
 

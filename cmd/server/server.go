@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/VyacheslavGoryunov/simple-ads-server/internal/ads"
 	"github.com/oschwald/geoip2-golang"
 	"log"
-	"mini-ads-server1/internal/ads"
 )
 
 func main() {
