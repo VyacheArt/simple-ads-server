@@ -2,6 +2,7 @@ package ads
 
 import (
 	realip "github.com/Ferluci/fast-realip"
+	"github.com/VyacheslavGoryunov/simple-ads-server/internal/stats"
 	"github.com/mssola/user_agent"
 	"github.com/oschwald/geoip2-golang"
 	"github.com/valyala/fasthttp"
@@ -12,14 +13,15 @@ import (
 
 type Server struct {
 	geoip *geoip2.Reader
+	stats *stats.Manager
 }
 
-func NewServer(geoip *geoip2.Reader) *Server {
-	return &Server{geoip: geoip}
+func NewServer(geoip *geoip2.Reader, stats *stats.Manager) *Server {
+	return &Server{geoip: geoip, stats: stats}
 }
 
 func (s *Server) Listen() error {
-	return fasthttp.ListenAndServe(":8080", s.handler)
+	return fasthttp.ListenAndServe(":8081", s.handler)
 }
 
 func (s *Server) handler(ctx *fasthttp.RequestCtx) {
@@ -29,16 +31,30 @@ func (s *Server) handler(ctx *fasthttp.RequestCtx) {
 	parsed := user_agent.New(ua)
 	browserName, _ := parsed.Browser()
 
+	statsKey := stats.NewKey(stats.Key{
+		Os:      parsed.OS(),
+		Browser: browserName,
+	})
+
+	statsValue := stats.Value{Requests: 1}
+
+	defer func() {
+		s.stats.Append(statsKey, statsValue)
+	}()
+
 	country, err := s.geoip.Country(net.ParseIP(remoteIp))
 	if err != nil {
 		log.Printf("Failed to parse country: %v", err)
 		return
 	}
 
+	statsKey.Country = country.Country.IsoCode
+
 	user := &User{
 		Country: country.Country.IsoCode,
 		Browser: browserName,
 	}
+
 	campaigns := GetStaticCampaigns()
 
 	winner := MakeAuction(campaigns, user)
@@ -46,6 +62,9 @@ func (s *Server) handler(ctx *fasthttp.RequestCtx) {
 		ctx.Redirect("https://example.com", http.StatusSeeOther)
 		return
 	}
+
+	statsKey.CampaignId = winner.Id
+	statsValue.Impressions++
 
 	ctx.Redirect(winner.ClickUrl, http.StatusSeeOther)
 }

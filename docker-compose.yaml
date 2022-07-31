@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  mysql-db:
+    image: mariadb:10
+    environment:
+      MYSQL_ROOT_PASSWORD: qwerty123
+    ports:
+      - "13306:3306"
+
