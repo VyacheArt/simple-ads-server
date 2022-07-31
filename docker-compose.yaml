@@ -8,3 +8,11 @@ services:
     ports:
       - "13306:3306"
 
+  clickhouse-db:
+    image: clickhouse/clickhouse-server:latest
+    environment:
+      CLICKHOUSE_USER: default
+      CLICKHOUSE_PASSWORD: qwerty123
+    ports:
+      - "18123:8123"
+      - "19000:9000"
