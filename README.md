@@ -4,6 +4,13 @@
 
 В этом репозитории находится простейший рекламный сервер на Go. Несмотря на его простоту, он использует стек, который используется на самом настоящем высоконагруженном рекламном сервере: fasthttp, GeoIP от MaxMind и [mssola/user_agent](https://github.com/mssola/user_agent).
 
+## Обновления!
+
+* Совсем недавно вышло видео про __[реализацию высоконагруженной статистики](https://www.youtube.com/watch?v=eAmblLikTgo)__
+
+  * [Версия со статистикой на MySQL](https://github.com/VyacheslavGoryunov/simple-ads-server/tree/mysql-stats)
+  * [Версия со статистикой на ClickHouse](https://github.com/VyacheslavGoryunov/simple-ads-server/tree/clickhouse-stats)
+
 ## Настройка
 
 Не забудьте перед запуском положить GeoLite2-Country.mmdb в корень проекта. В остальном всё должно сразу работать :) 
