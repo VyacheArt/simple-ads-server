@@ -16,3 +16,10 @@ services:
     ports:
       - "18123:8123"
       - "19000:9000"
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "19090:9090"

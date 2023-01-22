@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/VyacheslavGoryunov/simple-ads-server/internal/ads"
+	"github.com/VyacheslavGoryunov/simple-ads-server/internal/metrics"
 	"github.com/VyacheslavGoryunov/simple-ads-server/internal/stats"
 	"github.com/VyacheslavGoryunov/simple-ads-server/internal/stats/clickhouse"
 	"github.com/oschwald/geoip2-golang"
@@ -24,8 +25,11 @@ func main() {
 	statsManager := stats.NewManager(cw, 10*time.Second)
 	statsManager.Start()
 
-	s := ads.NewServer(reader, statsManager)
+	go func() {
+		_ = metrics.Listen("127.0.0.1:8082")
+	}()
 
+	s := ads.NewServer(reader, statsManager)
 	if err := s.Listen(); err != nil {
 		log.Fatal(err)
 	}
