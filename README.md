@@ -8,8 +8,11 @@
 
 * Совсем недавно вышло видео про __[реализацию высоконагруженной статистики](https://www.youtube.com/watch?v=eAmblLikTgo)__
 
-  * [Версия со статистикой на MySQL](https://github.com/VyacheslavGoryunov/simple-ads-server/tree/mysql-stats)
-  * [Версия со статистикой на ClickHouse](https://github.com/VyacheslavGoryunov/simple-ads-server/tree/clickhouse-stats)
+  * [Ветка со статистикой на MySQL](https://github.com/VyacheArt/simple-ads-server/tree/mysql-stats)
+  * [Ветка со статистикой на ClickHouse](https://github.com/VyacheslavGoryunov/simple-ads-server/tree/clickhouse-stats)
+
+* А в ролике про __[Prometheus метрики в GoLang](https://youtu.be/6pQQw-qEoCo)__ я рассказываю про метрики на примере этого рекламного сервера
+  * [Ветка с метриками на Prometheus](https://github.com/VyacheArt/simple-ads-server/tree/prometheus)
 
 ## Настройка
 
